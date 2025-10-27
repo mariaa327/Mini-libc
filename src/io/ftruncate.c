@@ -7,5 +7,12 @@
 int ftruncate(int fd, off_t length)
 {
 	/* TODO: Implement ftruncate(). */
-	return -1;
+	long result = syscall(__NR_ftruncate, fd, length);
+
+	if (result < 0) {
+		errno = -result; // se seteaza errno la valoarea pozitiva a erorii
+		return -1; // returneaza -1 pentru a indica eroarea
+	}
+
+	return (int)result;
 }
