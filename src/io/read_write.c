@@ -7,24 +7,24 @@
 
 ssize_t write(int fd, const void *buf, size_t len)
 {
-	int ret = syscall(__NR_write, fd, buf, len);
+	long result = syscall(__NR_write, fd, buf, len);
 
-	if (ret < 0) {
-		errno = -ret;
-		return -1;
+	if (result < 0) {
+		errno = -result; // se seteaza errno la valoarea pozitiva a erorii
+		return -1; // returneaza -1 pentru a indica eroarea
 	}
 
-	return ret;
+	return result;
 }
 
 ssize_t read(int fd, void *buf, size_t len)
 {
-	int ret =  syscall(__NR_read, fd, buf, len);
+	long result =  syscall(__NR_read, fd, buf, len);
 
-	if (ret < 0) {
-		errno = -ret;
-		return -1;
+	if (result < 0) {
+		errno = -result; // se seteaza errno la valoarea pozitiva a erorii
+		return -1; // returneaza -1 pentru a indica eroarea
 	}
 
-	return ret;
+	return result;
 }
