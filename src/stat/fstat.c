@@ -7,5 +7,14 @@
 int fstat(int fd, struct stat *st)
 {
 	/* TODO: Implement fstat(). */
-	return -1;
+	long result;
+
+	result = syscall(__NR_fstat, fd, st);
+
+	if (result < 0) {
+		errno = -result; // se seteaza errno la valoarea pozitiva a erorii
+		return -1; // returneaza -1 pentru a indica eroarea
+	}
+
+	return 0;
 }
