@@ -8,5 +8,12 @@
 int close(int fd)
 {
 	/* TODO: Implement close(). */
-	return -1;
+	long result = syscall(__NR_close, fd);
+
+	if (result < 0) {
+		errno = -result; // se seteaza errno la valoarea pozitiva a erorii
+		return -1; // returneaza -1 pentru a indica eroarea
+	}
+
+	return (int)result;
 }
